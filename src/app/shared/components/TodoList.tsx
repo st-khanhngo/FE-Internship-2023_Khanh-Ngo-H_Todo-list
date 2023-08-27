@@ -11,6 +11,7 @@ const TodoList = (): React.ReactElement => {
 
 	const [todoItem, setTodoItem] = useState('');
 	const tabs = ['All', 'Active', 'Completed'];
+	const [currentTab, setCurrentTab] = useState('All');
 
 	useEffect(() => {
 		setFilterList(todoList);
@@ -38,7 +39,6 @@ const TodoList = (): React.ReactElement => {
 				return todo.id !== id;
 			})
 		);
-		// setFilterList(todoList);
 	}
 
 	function updateItem(todo: any) {
@@ -46,10 +46,10 @@ const TodoList = (): React.ReactElement => {
 			return item.id === todo.id ? todo : item;
 		});
 		setTodoList(newTodos);
-		// setFilterList(newTodos);
 	}
 
 	function changeTab(tab: string): void {
+		setCurrentTab(tab);
 		switch (tab) {
 			case 'All':
 				setFilterList(todoList);
@@ -68,12 +68,12 @@ const TodoList = (): React.ReactElement => {
 	function deleteComplete(): void {
 		const newList = todoList.filter((item: any) => item.isChecked === false);
 		setTodoList(newList);
-		// setFilterList(newList);
 	}
 
 	return (
-		<div>
+		<div className='todo-list'>
 			<input
+				className='todo-input'
 				type='text'
 				value={todoItem}
 				placeholder='What need to be done?'
@@ -93,20 +93,34 @@ const TodoList = (): React.ReactElement => {
 				})}
 			</ul>
 
-			<span>
-				{todoList.filter((item: any) => item.isChecked === false).length} items
-				left
-			</span>
-
-			<ul>
-				{tabs.map((tab, index) => (
-					<li key={index}>
-						<span onClick={() => changeTab(tab)}>{tab}</span>
-					</li>
-				))}
-			</ul>
-
-			<span onClick={deleteComplete}>Clear completed</span>
+			<div className='todo-footer d-flex'>
+				<span>
+					{todoList.filter((item: any) => item.isChecked === false).length}{' '}
+					items left
+				</span>
+				<ul className='d-flex'>
+					{tabs.map((tab, index) => (
+						<li
+							key={index}
+							className='tab'
+						>
+							<span
+								id={`${tab === currentTab && `active`}`}
+								className='btn btn-primary'
+								onClick={() => changeTab(tab)}
+							>
+								{tab}
+							</span>
+						</li>
+					))}
+				</ul>
+				<span
+					className='btn btn-primary'
+					onClick={deleteComplete}
+				>
+					Clear completed
+				</span>
+			</div>
 		</div>
 	);
 };

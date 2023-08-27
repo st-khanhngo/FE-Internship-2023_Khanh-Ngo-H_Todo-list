@@ -1,0 +1,11 @@
+.btn {
+	padding: 4px 10px;
+	border-radius: 12px;
+	cursor: pointer;
+
+	&-danger {
+		display: none;
+		background-color: rgb(255, 113, 113);
+		color: map-get($map: $color, $key: light);
+	}
+}

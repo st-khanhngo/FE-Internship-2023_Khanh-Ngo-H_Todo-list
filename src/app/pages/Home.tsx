@@ -3,9 +3,11 @@ import TodoList from '../shared/components/TodoList';
 
 const Home = () => {
 	return (
-		<div>
-			<h1>TODO LIST</h1>
-			<TodoList />
+		<div className='home-page'>
+			<div className='container'>
+				<h1 className='header-title'>TODO LIST</h1>
+				<TodoList />
+			</div>
 		</div>
 	);
 };

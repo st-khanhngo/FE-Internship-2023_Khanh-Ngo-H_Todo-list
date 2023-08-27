@@ -6,15 +6,28 @@ const TodoItem = (props: any): any => {
 	};
 
 	return (
-		<li>
-			<input
-				type='checkbox'
-				name='todo'
-				checked={todo.isChecked}
-				onChange={checkItem}
-			/>
-			<label htmlFor='todo'>{todo.name}</label>
-			<button onClick={() => deleteItem(todo.id)}>X</button>
+		<li className='todo-item d-flex'>
+			<div className='todo-content'>
+				<input
+					className='todo-check'
+					type='checkbox'
+					name='todo'
+					checked={todo.isChecked}
+					onChange={checkItem}
+				/>
+				<label
+					className='todo-name'
+					htmlFor='todo'
+				>
+					{todo.name}
+				</label>
+			</div>
+			<button
+				className='btn btn-danger'
+				onClick={() => deleteItem(todo.id)}
+			>
+				X
+			</button>
 		</li>
 	);
 };

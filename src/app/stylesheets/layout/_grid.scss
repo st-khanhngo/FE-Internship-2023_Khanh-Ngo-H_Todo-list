@@ -1,0 +1,44 @@
+.container {
+	width: map-get($map: $width, $key: container);
+	margin: 0 auto;
+}
+
+.detail-container {
+	width: map-get($map: $width, $key: detail-container);
+	margin: 0 auto;
+}
+
+.d-flex {
+	display: flex;
+
+	&.align-center {
+		align-items: center;
+	}
+}
+
+.d-none {
+	display: none;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -15px;
+	margin-right: -15px;
+
+	.col {
+		padding: 0 15px;
+	}
+	@for $i from 1 through 12 {
+		.col-#{$i} {
+			width: percentage(calc($i/12));
+		}
+	}
+
+	@for $i from 1 to 12 {
+		&-cols-#{$i} .col {
+			flex: 0 0 (calc(100% / $i));
+			max-width: calc(100% / $i);
+		}
+	}
+}
