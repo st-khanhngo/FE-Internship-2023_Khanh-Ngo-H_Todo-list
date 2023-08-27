@@ -114,12 +114,14 @@ const TodoList = (): React.ReactElement => {
 						</li>
 					))}
 				</ul>
-				<span
-					className='btn btn-primary'
-					onClick={deleteComplete}
-				>
-					Clear completed
-				</span>
+				{todoList.filter((item: any) => item.isChecked === true).length > 0 && (
+					<span
+						className='btn btn-primary'
+						onClick={deleteComplete}
+					>
+						Clear completed
+					</span>
+				)}
 			</div>
 		</div>
 	);
