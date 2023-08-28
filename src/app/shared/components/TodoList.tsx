@@ -2,8 +2,14 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import TodoItem from './TodoItem';
 
+export interface TodoProps {
+	id: string;
+	name: string;
+	isChecked: boolean;
+}
+
 const TodoList = (): React.ReactElement => {
-	const [todoList, setTodoList]: any = useState(
+	const [todoList, setTodoList] = useState(
 		JSON.parse(localStorage.getItem('todo')!)
 	);
 
@@ -17,7 +23,7 @@ const TodoList = (): React.ReactElement => {
 		setFilterList(todoList);
 		changeTab(currentTab);
 		localStorage.setItem('todo', JSON.stringify(todoList));
-	}, [todoList]);
+	}, [todoList, currentTab]);
 
 	function handleEnter(event: React.KeyboardEvent<HTMLInputElement>): void {
 		if (event.key === 'Enter' && todoItem) {
@@ -36,14 +42,14 @@ const TodoList = (): React.ReactElement => {
 
 	function deleteItem(id: string) {
 		setTodoList(
-			todoList.filter((todo: any) => {
+			todoList.filter((todo: TodoProps) => {
 				return todo.id !== id;
 			})
 		);
 	}
 
-	function updateItem(todo: any) {
-		const newTodos = todoList.map((item: any) => {
+	function updateItem(todo: TodoProps) {
+		const newTodos = todoList.map((item: TodoProps) => {
 			return item.id === todo.id ? todo : item;
 		});
 		setTodoList(newTodos);
@@ -56,10 +62,14 @@ const TodoList = (): React.ReactElement => {
 				setFilterList(todoList);
 				break;
 			case 'Active':
-				setFilterList(todoList.filter((item: any) => item.isChecked === false));
+				setFilterList(
+					todoList.filter((item: TodoProps) => item.isChecked === false)
+				);
 				break;
 			case 'Completed':
-				setFilterList(todoList.filter((item: any) => item.isChecked === true));
+				setFilterList(
+					todoList.filter((item: TodoProps) => item.isChecked === true)
+				);
 				break;
 			default:
 				break;
@@ -67,7 +77,9 @@ const TodoList = (): React.ReactElement => {
 	}
 
 	function deleteComplete(): void {
-		const newList = todoList.filter((item: any) => item.isChecked === false);
+		const newList = todoList.filter(
+			(item: TodoProps) => item.isChecked === false
+		);
 		setTodoList(newList);
 	}
 
@@ -82,7 +94,7 @@ const TodoList = (): React.ReactElement => {
 				onKeyDown={handleEnter}
 			/>
 			<ul>
-				{filterList.map((todo: any) => {
+				{filterList.map((todo: TodoProps) => {
 					return (
 						<TodoItem
 							key={todo.id}
@@ -96,7 +108,10 @@ const TodoList = (): React.ReactElement => {
 
 			<div className='todo-footer d-flex'>
 				<span>
-					{todoList.filter((item: any) => item.isChecked === false).length}{' '}
+					{
+						todoList.filter((item: TodoProps) => item.isChecked === false)
+							.length
+					}{' '}
 					item(s) left
 				</span>
 				<ul className='d-flex'>
@@ -115,7 +130,8 @@ const TodoList = (): React.ReactElement => {
 						</li>
 					))}
 				</ul>
-				{todoList.filter((item: any) => item.isChecked === true).length > 0 && (
+				{todoList.filter((item: TodoProps) => item.isChecked === true).length >
+					0 && (
 					<span
 						className='btn btn-primary btn-delete'
 						onClick={deleteComplete}

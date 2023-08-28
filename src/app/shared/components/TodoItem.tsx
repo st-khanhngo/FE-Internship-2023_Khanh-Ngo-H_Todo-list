@@ -1,4 +1,12 @@
-const TodoItem = (props: any): any => {
+import { TodoProps } from './TodoList';
+
+interface Props {
+	todo: TodoProps;
+	deleteItem: Function;
+	updateItem: Function;
+}
+
+const TodoItem = (props: Props) => {
 	const { todo, deleteItem, updateItem } = props;
 
 	const checkItem = (e: React.ChangeEvent<HTMLInputElement>) => {
