@@ -22,12 +22,12 @@ const TodoItem = (props: any): any => {
 					{todo.name}
 				</label>
 			</div>
-			<button
+			<span
 				className='btn btn-danger'
 				onClick={() => deleteItem(todo.id)}
 			>
-				X
-			</button>
+				x
+			</span>
 		</li>
 	);
 };

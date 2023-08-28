@@ -15,6 +15,7 @@ const TodoList = (): React.ReactElement => {
 
 	useEffect(() => {
 		setFilterList(todoList);
+		changeTab(currentTab);
 		localStorage.setItem('todo', JSON.stringify(todoList));
 	}, [todoList]);
 
@@ -96,7 +97,7 @@ const TodoList = (): React.ReactElement => {
 			<div className='todo-footer d-flex'>
 				<span>
 					{todoList.filter((item: any) => item.isChecked === false).length}{' '}
-					items left
+					item(s) left
 				</span>
 				<ul className='d-flex'>
 					{tabs.map((tab, index) => (
@@ -116,7 +117,7 @@ const TodoList = (): React.ReactElement => {
 				</ul>
 				{todoList.filter((item: any) => item.isChecked === true).length > 0 && (
 					<span
-						className='btn btn-primary'
+						className='btn btn-primary btn-delete'
 						onClick={deleteComplete}
 					>
 						Clear completed
