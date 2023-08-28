@@ -59,6 +59,13 @@
 		}
 	}
 
+	.checked {
+		.todo-name {
+			opacity: 0.5;
+			text-decoration: line-through;
+			font-style: italic;
+		}
+	}
 	.todo-footer {
 		margin-top: 20px;
 		height: 30px;

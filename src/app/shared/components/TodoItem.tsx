@@ -15,7 +15,7 @@ const TodoItem = (props: Props) => {
 
 	return (
 		<li className='todo-item d-flex'>
-			<div className='todo-content'>
+			<div className={`todo-content ${todo.isChecked && `checked`}`}>
 				<input
 					className='todo-check'
 					type='checkbox'
