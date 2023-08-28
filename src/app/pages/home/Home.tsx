@@ -1,5 +1,4 @@
-import React from 'react';
-import TodoList from '../shared/components/TodoList';
+import TodoList from './component/TodoList';
 
 const Home = () => {
   return (

@@ -53,9 +53,16 @@
       width: 20px;
     }
 
-    .todo-name {
+    .todo-name,
+    .todo-edit {
+      display: inline-block;
+      width: 600px;
       vertical-align: top;
       margin-left: 20px;
+    }
+
+    .input {
+      padding: 4px 10px;
     }
   }
 

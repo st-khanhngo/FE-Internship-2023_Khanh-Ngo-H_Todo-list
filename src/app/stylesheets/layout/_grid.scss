@@ -1,5 +1,5 @@
 .container {
-  width: map-get($map: $width, $key: container);
+  max-width: map-get($map: $width, $key: container);
   margin: 0 auto;
 }
 
