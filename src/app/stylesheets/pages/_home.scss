@@ -1,0 +1,91 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
+    url(https://images.unsplash.com/photo-1523374228107-6e44bd2b524e?auto=format&fit=crop&ixid=eyJhcHBfaWQiOjEyMDd9&ixlib=rb-1.2.1&q=80&w=1350)
+      50% no-repeat;
+  background-size: cover;
+}
+
+.home-page {
+  padding: 100px 0;
+  .header-title {
+    margin: 24px 0;
+    text-align: center;
+    color: map-get($map: $color, $key: light);
+  }
+
+  .todo-list {
+    padding: 2rem 2rem 1rem;
+    background-color: hsla(0, 0%, 96.1%, 0.9);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f5f5f5,
+      0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f5f5f5,
+      0 17px 2px -6px rgba(0, 0, 0, 0.2);
+  }
+
+  .todo-input {
+    display: inline;
+    font-size: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-left: 2rem;
+    padding-bottom: 10px;
+    background-color: transparent;
+    letter-spacing: 0.1rem;
+    outline: none;
+    border-bottom: 1px solid rgb(204, 204, 204);
+  }
+
+  .todo-item {
+    height: 62px;
+    padding: 20px 12px;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+
+    &:hover .btn-danger {
+      display: block;
+    }
+  }
+
+  .todo-content {
+    .todo-check {
+      height: 20px;
+      width: 20px;
+    }
+
+    .todo-name,
+    .todo-edit {
+      display: inline-block;
+      width: 600px;
+      vertical-align: top;
+      margin-left: 20px;
+    }
+
+    .input {
+      padding: 4px 10px;
+    }
+  }
+
+  .checked {
+    .todo-name {
+      opacity: 0.5;
+      text-decoration: line-through;
+      font-style: italic;
+    }
+  }
+  .todo-footer {
+    margin-top: 20px;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tab {
+    margin: 0 12px;
+  }
+
+  .btn-primary:hover,
+  #active {
+    border: 1px solid gray;
+  }
+}

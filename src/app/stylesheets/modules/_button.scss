@@ -1,0 +1,21 @@
+.btn {
+  padding: 0px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &-danger {
+    display: none;
+    background-color: rgb(255, 113, 113);
+    color: map-get($map: $color, $key: light);
+
+    &:hover {
+      color: rgb(255, 113, 113);
+      background-color: map-get($map: $color, $key: light);
+    }
+  }
+
+  &-primary {
+    padding: 4px 8px;
+  }
+}
