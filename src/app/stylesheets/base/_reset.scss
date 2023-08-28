@@ -1,14 +1,14 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	box-shadow: none;
-	border: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 img,
@@ -16,14 +16,14 @@ picture,
 video,
 canvas,
 svg {
-	max-width: 100%;
-	display: block;
+  max-width: 100%;
+  display: block;
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
