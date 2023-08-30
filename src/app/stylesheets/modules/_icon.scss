@@ -1,7 +1,15 @@
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   display: inline-block;
   background: no-repeat center;
   vertical-align: middle;
+  &-check-all {
+    position: absolute;
+    background: url('../../assets/images/ic-check-all.svg');
+    background-size: cover;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
