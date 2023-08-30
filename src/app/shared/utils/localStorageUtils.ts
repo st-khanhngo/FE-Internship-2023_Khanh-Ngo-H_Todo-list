@@ -1,8 +1,8 @@
 export enum StorageKey {
-  TODO = 'todo'
+  TODO = 'todo',
 }
-export function getLocalStorage<T>(key: StorageKey, initial: T): T {
-  return JSON.parse(localStorage.getItem(key) || `${initial}`);
+export function getLocalStorage(key: StorageKey) {
+  return JSON.parse(localStorage.getItem(key) || `[]`);
 }
 
 export function saveToLocalStorage<T>(key: string, data: T) {

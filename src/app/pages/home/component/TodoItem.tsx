@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { TodoProps } from '../../../core/models/todoProps';
 
 interface Props {
@@ -9,58 +9,63 @@ interface Props {
 
 const TodoItem = ({ todo, deleteItem, updateItem }: Props) => {
   const [editItem, setEditItem] = useState(false);
-  const [todoEdit, setTodoEdit] = useState(todo.name);
+  const editInput = useRef<HTMLInputElement>(null);
 
   const checkItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateItem({ ...todo, isCompleted: e.target.checked });
   };
 
-  function handleEdit(): void {
+  function toggleShowEdit(): void {
     setEditItem(!editItem);
   }
 
-  function handleChangeName(event: React.ChangeEvent<HTMLInputElement>): void {
-    setTodoEdit(event.target.value);
+  function handleChangeName(
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void {
+    if (event.key === 'Enter' && editInput) {
+      handleSaveEdit();
+    }
   }
 
-  function handleSaveEdit(
-    event: React.FocusEvent<HTMLInputElement, Element>
-  ): void {
-    handleEdit();
-    updateItem({ ...todo, name: todoEdit });
+  function handleSaveEdit(): void {
+    toggleShowEdit();
+    updateItem({ ...todo, name: editInput.current!.value });
   }
+
+  console.log(editInput);
 
   return (
-    <li className='todo-item d-flex'>
+    <li className="todo-item d-flex">
       <div className={`todo-content ${todo.isCompleted && `checked`}`}>
         <input
-          className='todo-check'
-          type='checkbox'
-          name='todo'
+          className="todo-check"
+          type="checkbox"
+          name="todo"
           checked={todo.isCompleted}
           autoFocus
           onChange={checkItem}
         />
         {editItem ? (
           <input
-            className='input todo-edit'
-            value={todoEdit}
-            onChange={handleChangeName}
+            className="input todo-edit"
+            ref={editInput}
+            defaultValue={todo.name}
+            onKeyUp={handleChangeName}
             onBlur={handleSaveEdit}
             autoFocus
           ></input>
         ) : (
           <label
-            className='todo-name'
-            htmlFor='todo'
-            onClick={handleEdit}
+            className="todo-name"
+            htmlFor="todo"
+            onClick={toggleShowEdit}
           >
             {todo.name}
           </label>
         )}
       </div>
       <span
-        className='btn btn-danger'
+        className="btn btn-danger"
         onClick={() => deleteItem(todo.id)}
       >
         x

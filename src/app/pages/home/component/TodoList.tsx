@@ -10,7 +10,7 @@ import TodoFooter from './TodoFooter';
 
 const TodoList = (): React.ReactElement => {
   const [todoList, setTodoList] = useState<TodoProps[]>(
-    getLocalStorage(StorageKey.TODO, [])
+    getLocalStorage(StorageKey.TODO)
   );
 
   const todoInput = useRef<HTMLInputElement>(null);
@@ -61,12 +61,12 @@ const TodoList = (): React.ReactElement => {
   }
 
   return (
-    <div className='todo-list'>
+    <div className="todo-list">
       <input
-        className='todo-input'
-        type='text'
+        className="todo-input"
+        type="text"
         ref={todoInput}
-        placeholder='What need to be done?'
+        placeholder="What need to be done?"
         onKeyUp={handleEnter}
       />
       <ul>
