@@ -16,7 +16,7 @@ const TodoFooter = ({
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
 
   return (
-    <div className='todo-footer d-flex'>
+    <div className="todo-footer d-flex">
       <span>
         {
           todoList.filter((item: TodoProps) => item.isCompleted === false)
@@ -24,15 +24,15 @@ const TodoFooter = ({
         }{' '}
         item(s) left
       </span>
-      <ul className='d-flex'>
+      <ul className="d-flex">
         {tabs.map((tab, index) => (
           <li
             key={index}
-            className='tab'
+            className="tab"
           >
             <span
               id={`${tab === currentTab && `active`}`}
-              className='btn btn-primary'
+              className="btn btn-primary"
               onClick={() => setCurrentTab(tab)}
             >
               {tab}
@@ -43,7 +43,7 @@ const TodoFooter = ({
       {todoList.filter((item: TodoProps) => item.isCompleted === true).length >
         0 && (
         <span
-          className='btn btn-primary btn-delete'
+          className="btn btn-primary btn-delete"
           onClick={clearComplete}
         >
           Clear completed

@@ -29,10 +29,8 @@ const TodoItem = ({ todo, deleteItem, updateItem }: Props) => {
 
   function handleSaveEdit(): void {
     toggleShowEdit();
-    updateItem({ ...todo, name: editInput.current!.value });
+    updateItem({ ...todo, name: editInput.current!.value.trim() });
   }
-
-  console.log(editInput);
 
   return (
     <li className="todo-item d-flex">
@@ -42,7 +40,6 @@ const TodoItem = ({ todo, deleteItem, updateItem }: Props) => {
           type="checkbox"
           name="todo"
           checked={todo.isCompleted}
-          autoFocus
           onChange={checkItem}
         />
         {editItem ? (

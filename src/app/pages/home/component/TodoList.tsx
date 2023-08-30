@@ -2,16 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import TodoItem from './TodoItem';
 import {
   StorageKey,
-  getLocalStorage,
   saveToLocalStorage,
 } from '../../../shared/utils/localStorageUtils';
 import { Tab, TodoProps } from '../../../core/models/todoProps';
 import TodoFooter from './TodoFooter';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  todoAdd,
+  todoClear,
+  todoComplete,
+  todoDelete,
+  todoUpdate,
+} from '../../../shared/redux/action';
 
 const TodoList = (): React.ReactElement => {
-  const [todoList, setTodoList] = useState<TodoProps[]>(
-    getLocalStorage(StorageKey.TODO)
-  );
+  const todoList = useSelector((state: any) => state.todoList);
+  const dispatch = useDispatch();
 
   const todoInput = useRef<HTMLInputElement>(null);
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.ALL);
@@ -23,27 +29,25 @@ const TodoList = (): React.ReactElement => {
   function handleEnter(event: React.KeyboardEvent<HTMLInputElement>): void {
     const todoItem: string = todoInput.current!.value.trim();
     if (event.key === 'Enter' && todoItem) {
-      setTodoList([
-        ...todoList,
-        { id: Date.now(), name: todoItem, isCompleted: false },
-      ]);
+      dispatch(todoAdd({ id: Date.now(), name: todoItem, isCompleted: false }));
       todoInput.current!.value = '';
     }
   }
 
+  function completeTodo(): void {
+    dispatch(todoComplete());
+  }
+
   function deleteItem(id: number) {
-    setTodoList(
-      todoList.filter((todo: TodoProps) => {
-        return todo.id !== id;
-      })
-    );
+    dispatch(todoDelete(id));
   }
 
   function updateItem(todo: TodoProps) {
-    const newTodos = todoList.map((item: TodoProps) => {
-      return item.id === todo.id ? todo : item;
-    });
-    setTodoList(newTodos);
+    dispatch(todoUpdate(todo));
+  }
+
+  function clearComplete(): void {
+    dispatch(todoClear());
   }
 
   const changeTab: Record<Tab, () => TodoProps[]> = {
@@ -54,18 +58,17 @@ const TodoList = (): React.ReactElement => {
       todoList.filter((item: TodoProps) => item.isCompleted === true),
   };
 
-  function clearComplete(): void {
-    setTodoList(
-      todoList.filter((item: TodoProps) => item.isCompleted === false)
-    );
-  }
-
   return (
     <div className="todo-list">
+      <i
+        className="icon icon-check-all"
+        onClick={completeTodo}
+      ></i>
       <input
         className="todo-input"
         type="text"
         ref={todoInput}
+        autoFocus
         placeholder="What need to be done?"
         onKeyUp={handleEnter}
       />
@@ -75,19 +78,20 @@ const TodoList = (): React.ReactElement => {
             <TodoItem
               key={todo.id}
               todo={todo}
-              deleteItem={deleteItem}
+              deleteItem={() => deleteItem(todo.id)}
               updateItem={updateItem}
             />
           );
         })}
       </ul>
-
-      <TodoFooter
-        todoList={todoList}
-        clearComplete={clearComplete}
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
-      />
+      {todoList.length > 0 && (
+        <TodoFooter
+          todoList={todoList}
+          clearComplete={clearComplete}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
+      )}
     </div>
   );
 };
