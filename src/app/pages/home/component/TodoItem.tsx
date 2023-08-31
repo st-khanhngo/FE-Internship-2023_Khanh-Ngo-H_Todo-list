@@ -1,16 +1,18 @@
 import { useRef, useState } from 'react';
-import { TodoProps } from '../../../core/models/todoProps';
 import { useDispatch } from 'react-redux';
+
+import { TodoProps } from '../../../core/models/todoProps';
 import { todoDelete, todoUpdate } from '../../../shared/redux/action';
 
-interface Props {
+interface TodoItemProps {
   todo: TodoProps;
 }
 
-const TodoItem = ({ todo }: Props) => {
+const TodoItem = ({ todo }: TodoItemProps) => {
   const [editItem, setEditItem] = useState(false);
-  const editInput = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
+
+  const editInput = useRef<HTMLInputElement>(null);
 
   const checkItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateItem({ ...todo, isCompleted: e.target.checked });
@@ -33,11 +35,11 @@ const TodoItem = ({ todo }: Props) => {
     updateItem({ ...todo, name: editInput.current!.value.trim() });
   }
 
-  function deleteItem(id: number) {
+  function deleteItem(id: number): void {
     dispatch(todoDelete(id));
   }
 
-  function updateItem(todo: TodoProps) {
+  function updateItem(todo: TodoProps): void {
     dispatch(todoUpdate(todo));
   }
 

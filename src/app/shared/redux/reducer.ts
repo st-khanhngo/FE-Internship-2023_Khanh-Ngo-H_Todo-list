@@ -1,4 +1,4 @@
-import { TodoProps } from '../../core/models/todoProps';
+import { ActionProps, TodoProps } from '../../core/models/todoProps';
 import { StorageKey, getLocalStorage } from '../utils/localStorageUtils';
 import {
   TODO_ADD,
@@ -12,7 +12,7 @@ const initialState = {
   todoList: getLocalStorage(StorageKey.TODO),
 };
 
-export const todoReducer = (state = initialState, action: any) => {
+export const todoReducer = (state = initialState, action: ActionProps) => {
   switch (action.type) {
     case TODO_ADD:
       return {

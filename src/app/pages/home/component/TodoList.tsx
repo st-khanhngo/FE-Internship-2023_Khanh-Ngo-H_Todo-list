@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Tab, TodoProps } from '../../../core/models/todoProps';
 import TodoItem from './TodoItem';
+import TodoFooter from './TodoFooter';
+
 import {
   StorageKey,
   saveToLocalStorage,
 } from '../../../shared/utils/localStorageUtils';
-import { Tab, TodoProps } from '../../../core/models/todoProps';
-import TodoFooter from './TodoFooter';
-import { useDispatch, useSelector } from 'react-redux';
 import { todoAdd, todoToggle } from '../../../shared/redux/action';
 
 const TodoList = (): React.ReactElement => {

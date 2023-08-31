@@ -1,4 +1,4 @@
-import { TodoProps } from '../../core/models/todoProps';
+import { ActionProps, TodoProps } from '../../core/models/todoProps';
 import {
   TODO_ADD,
   TODO_CLEAR,
@@ -7,34 +7,34 @@ import {
   TODO_UPDATE,
 } from './type';
 
-export const todoAdd = (todoItem: TodoProps) => {
+export const todoAdd = (todoItem: TodoProps): ActionProps => {
   return {
     type: TODO_ADD,
     payload: todoItem,
   };
 };
 
-export const todoDelete = (id: number) => {
+export const todoDelete = (id: number): ActionProps => {
   return {
     type: TODO_DELETE,
     payload: id,
   };
 };
 
-export const todoUpdate = (todoItem: TodoProps) => {
+export const todoUpdate = (todoItem: TodoProps): ActionProps => {
   return {
     type: TODO_UPDATE,
     payload: todoItem,
   };
 };
 
-export const todoClear = () => {
+export const todoClear = (): ActionProps => {
   return {
     type: TODO_CLEAR,
   };
 };
 
-export const todoToggle = (status: boolean) => {
+export const todoToggle = (status: boolean): ActionProps => {
   return {
     type: TODO_TOGGLE_STATUS,
     payload: status,
