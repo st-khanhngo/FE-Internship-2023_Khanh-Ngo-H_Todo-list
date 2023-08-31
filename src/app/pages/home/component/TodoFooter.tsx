@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Tab, TodoProps } from '../../../core/models/todoProps';
+import { StateProps, Tab, TodoProps } from '../../../core/models/todoProps';
 import { changeCurrentTab, todoClear } from '../../../redux/action';
 
 interface FooterProps {
@@ -9,7 +9,7 @@ interface FooterProps {
 
 const TodoFooter = ({ todoList }: FooterProps) => {
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
-  const currentTab = useSelector((state: any) => state.currentTab);
+  const currentTab = useSelector((state: StateProps) => state.currentTab);
   const dispatch = useDispatch();
 
   function clearComplete(): void {

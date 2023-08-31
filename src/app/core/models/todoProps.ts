@@ -14,3 +14,8 @@ export interface ActionProps {
   type: string;
   payload?: any;
 }
+
+export interface StateProps {
+  todoList: TodoProps[];
+  currentTab: Tab;
+}

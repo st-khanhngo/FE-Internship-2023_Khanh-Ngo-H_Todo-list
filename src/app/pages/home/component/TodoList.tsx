@@ -18,7 +18,7 @@ interface StateProps {
 
 const TodoList = (): React.ReactElement => {
   const { todoList, currentTab }: StateProps = useSelector(
-    (state: any) => state
+    (state: StateProps) => state
   );
   const dispatch = useDispatch();
 
