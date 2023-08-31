@@ -1,38 +1,38 @@
-import { Tab, TodoProps } from '../../../core/models/todoProps';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface FooterProps {
-  todoList: TodoProps[];
-  clearComplete: () => void;
-  currentTab: string;
-  setCurrentTab: React.Dispatch<React.SetStateAction<Tab>>;
-}
+import { StateProps, Tab, TodoProps } from '../../../core/models/todoProps';
+import { changeCurrentTab, todoClear } from '../../../redux/action';
 
-const TodoFooter = ({
-  todoList,
-  clearComplete,
-  currentTab,
-  setCurrentTab,
-}: FooterProps) => {
+const TodoFooter = () => {
+  const todoList = useSelector((state: StateProps) => state.todoList);
+  const currentTab = useSelector((state: StateProps) => state.currentTab);
+
+  const dispatch = useDispatch();
+
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
 
+  function clearComplete(): void {
+    dispatch(todoClear());
+  }
+
+  function setCurrentTab(tab: Tab) {
+    dispatch(changeCurrentTab(tab));
+  }
+
   return (
-    <div className='todo-footer d-flex'>
+    <div className="todo-footer d-flex">
       <span>
-        {
-          todoList.filter((item: TodoProps) => item.isCompleted === false)
-            .length
-        }{' '}
-        item(s) left
+        {todoList.filter((item) => !item.isCompleted).length} item(s) left
       </span>
-      <ul className='d-flex'>
+      <ul className="d-flex">
         {tabs.map((tab, index) => (
           <li
             key={index}
-            className='tab'
+            className="tab"
           >
             <span
               id={`${tab === currentTab && `active`}`}
-              className='btn btn-primary'
+              className="btn btn-primary"
               onClick={() => setCurrentTab(tab)}
             >
               {tab}
@@ -40,10 +40,9 @@ const TodoFooter = ({
           </li>
         ))}
       </ul>
-      {todoList.filter((item: TodoProps) => item.isCompleted === true).length >
-        0 && (
+      {todoList.filter((item: TodoProps) => item.isCompleted).length > 0 && (
         <span
-          className='btn btn-primary btn-delete'
+          className="btn btn-primary btn-delete"
           onClick={clearComplete}
         >
           Clear completed
