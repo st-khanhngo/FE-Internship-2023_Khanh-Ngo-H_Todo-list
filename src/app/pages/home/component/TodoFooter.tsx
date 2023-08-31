@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateProps, Tab, TodoProps } from '../../../core/models/todoProps';
 import { changeCurrentTab, todoClear } from '../../../redux/action';
 
-interface FooterProps {
-  todoList: TodoProps[];
-}
-
-const TodoFooter = ({ todoList }: FooterProps) => {
+const TodoFooter = () => {
+  const todoList = useSelector((state: StateProps) => state.todoList);
   const currentTab = useSelector((state: StateProps) => state.currentTab);
+
   const dispatch = useDispatch();
 
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
@@ -24,8 +22,7 @@ const TodoFooter = ({ todoList }: FooterProps) => {
   return (
     <div className="todo-footer d-flex">
       <span>
-        {todoList.filter((item) => item.isCompleted === false).length} item(s)
-        left
+        {todoList.filter((item) => !item.isCompleted).length} item(s) left
       </span>
       <ul className="d-flex">
         {tabs.map((tab, index) => (
@@ -43,8 +40,7 @@ const TodoFooter = ({ todoList }: FooterProps) => {
           </li>
         ))}
       </ul>
-      {todoList.filter((item: TodoProps) => item.isCompleted === true).length >
-        0 && (
+      {todoList.filter((item: TodoProps) => item.isCompleted).length > 0 && (
         <span
           className="btn btn-primary btn-delete"
           onClick={clearComplete}

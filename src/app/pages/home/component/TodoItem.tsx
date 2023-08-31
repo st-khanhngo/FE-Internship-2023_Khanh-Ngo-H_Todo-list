@@ -9,7 +9,7 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ todo }: TodoItemProps) => {
-  const [editItem, setEditItem] = useState(false);
+  const [isEditItem, setIsEditItem] = useState(false);
   const dispatch = useDispatch();
 
   const editInput = useRef<HTMLInputElement>(null);
@@ -19,7 +19,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   };
 
   function toggleShowEdit(): void {
-    setEditItem(!editItem);
+    setIsEditItem(!isEditItem);
   }
 
   function handleChangeName(
@@ -35,12 +35,12 @@ const TodoItem = ({ todo }: TodoItemProps) => {
     updateItem({ ...todo, name: editInput.current!.value.trim() });
   }
 
-  function deleteItem(id: number): void {
-    dispatch(todoDelete(id));
-  }
-
   function updateItem(todo: TodoProps): void {
     dispatch(todoUpdate(todo));
+  }
+
+  function deleteItem(id: number): void {
+    dispatch(todoDelete(id));
   }
 
   return (
@@ -53,7 +53,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
           checked={todo.isCompleted}
           onChange={checkItem}
         />
-        {editItem ? (
+        {isEditItem ? (
           <input
             className="input todo-edit"
             ref={editInput}

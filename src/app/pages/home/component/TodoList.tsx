@@ -12,9 +12,8 @@ import {
 import { todoAdd, todoToggle } from '../../../redux/action';
 
 const TodoList = (): React.ReactElement => {
-  const { todoList, currentTab }: StateProps = useSelector(
-    (state: StateProps) => state
-  );
+  const todoList = useSelector((state: StateProps) => state.todoList);
+  const currentTab = useSelector((state: StateProps) => state.currentTab);
   const dispatch = useDispatch();
 
   const [listStatus, setListStatus] = useState(true);
@@ -39,10 +38,9 @@ const TodoList = (): React.ReactElement => {
 
   const changeTab: Record<Tab, () => TodoProps[]> = {
     [Tab.ALL]: () => todoList,
-    [Tab.ACTIVE]: () =>
-      todoList.filter((item: TodoProps) => item.isCompleted === false),
+    [Tab.ACTIVE]: () => todoList.filter((item: TodoProps) => !item.isCompleted),
     [Tab.COMPLETED]: () =>
-      todoList.filter((item: TodoProps) => item.isCompleted === true),
+      todoList.filter((item: TodoProps) => item.isCompleted),
   };
 
   return (
@@ -69,7 +67,7 @@ const TodoList = (): React.ReactElement => {
           );
         })}
       </ul>
-      {todoList.length > 0 && <TodoFooter todoList={todoList} />}
+      {todoList.length > 0 && <TodoFooter />}
     </div>
   );
 };
