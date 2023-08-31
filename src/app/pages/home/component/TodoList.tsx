@@ -7,20 +7,15 @@ import {
 import { Tab, TodoProps } from '../../../core/models/todoProps';
 import TodoFooter from './TodoFooter';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  todoAdd,
-  todoClear,
-  todoComplete,
-  todoDelete,
-  todoUpdate,
-} from '../../../shared/redux/action';
+import { todoAdd, todoToggle } from '../../../shared/redux/action';
 
 const TodoList = (): React.ReactElement => {
   const todoList = useSelector((state: any) => state.todoList);
   const dispatch = useDispatch();
 
-  const todoInput = useRef<HTMLInputElement>(null);
+  const [listStatus, setListStatus] = useState(true);
   const [currentTab, setCurrentTab] = useState<Tab>(Tab.ALL);
+  const todoInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     saveToLocalStorage(StorageKey.TODO, todoList);
@@ -34,20 +29,9 @@ const TodoList = (): React.ReactElement => {
     }
   }
 
-  function completeTodo(): void {
-    dispatch(todoComplete());
-  }
-
-  function deleteItem(id: number) {
-    dispatch(todoDelete(id));
-  }
-
-  function updateItem(todo: TodoProps) {
-    dispatch(todoUpdate(todo));
-  }
-
-  function clearComplete(): void {
-    dispatch(todoClear());
+  function toggleStatus(listStatus: boolean): void {
+    dispatch(todoToggle(listStatus));
+    setListStatus(!listStatus);
   }
 
   const changeTab: Record<Tab, () => TodoProps[]> = {
@@ -59,10 +43,10 @@ const TodoList = (): React.ReactElement => {
   };
 
   return (
-    <div className="todo-list">
+    <div className="todo-wrapper">
       <i
         className="icon icon-check-all"
-        onClick={completeTodo}
+        onClick={() => toggleStatus(listStatus)}
       ></i>
       <input
         className="todo-input"
@@ -72,14 +56,12 @@ const TodoList = (): React.ReactElement => {
         placeholder="What need to be done?"
         onKeyUp={handleEnter}
       />
-      <ul>
+      <ul className="todo-list">
         {changeTab[currentTab]().map((todo: TodoProps) => {
           return (
             <TodoItem
               key={todo.id}
               todo={todo}
-              deleteItem={() => deleteItem(todo.id)}
-              updateItem={updateItem}
             />
           );
         })}
@@ -87,7 +69,6 @@ const TodoList = (): React.ReactElement => {
       {todoList.length > 0 && (
         <TodoFooter
           todoList={todoList}
-          clearComplete={clearComplete}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
         />

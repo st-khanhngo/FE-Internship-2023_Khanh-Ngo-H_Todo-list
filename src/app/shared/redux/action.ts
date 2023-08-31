@@ -2,8 +2,8 @@ import { TodoProps } from '../../core/models/todoProps';
 import {
   TODO_ADD,
   TODO_CLEAR,
-  TODO_COMPLETE,
   TODO_DELETE,
+  TODO_TOGGLE_STATUS,
   TODO_UPDATE,
 } from './type';
 
@@ -34,8 +34,9 @@ export const todoClear = () => {
   };
 };
 
-export const todoComplete = () => {
+export const todoToggle = (status: boolean) => {
   return {
-    type: TODO_COMPLETE,
+    type: TODO_TOGGLE_STATUS,
+    payload: status,
   };
 };

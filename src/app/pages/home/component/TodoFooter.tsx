@@ -1,28 +1,26 @@
+import { useDispatch } from 'react-redux';
 import { Tab, TodoProps } from '../../../core/models/todoProps';
+import { todoClear } from '../../../shared/redux/action';
 
 interface FooterProps {
   todoList: TodoProps[];
-  clearComplete: () => void;
   currentTab: string;
   setCurrentTab: React.Dispatch<React.SetStateAction<Tab>>;
 }
 
-const TodoFooter = ({
-  todoList,
-  clearComplete,
-  currentTab,
-  setCurrentTab,
-}: FooterProps) => {
+const TodoFooter = ({ todoList, currentTab, setCurrentTab }: FooterProps) => {
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
+  const dispatch = useDispatch();
+
+  function clearComplete(): void {
+    dispatch(todoClear());
+  }
 
   return (
     <div className="todo-footer d-flex">
       <span>
-        {
-          todoList.filter((item: TodoProps) => item.isCompleted === false)
-            .length
-        }{' '}
-        item(s) left
+        {todoList.filter((item) => item.isCompleted === false).length} item(s)
+        left
       </span>
       <ul className="d-flex">
         {tabs.map((tab, index) => (

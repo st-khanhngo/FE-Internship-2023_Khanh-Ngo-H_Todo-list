@@ -3,8 +3,8 @@ import { StorageKey, getLocalStorage } from '../utils/localStorageUtils';
 import {
   TODO_ADD,
   TODO_CLEAR,
-  TODO_COMPLETE,
   TODO_DELETE,
+  TODO_TOGGLE_STATUS,
   TODO_UPDATE,
 } from './type';
 
@@ -40,12 +40,12 @@ export const todoReducer = (state = initialState, action: any) => {
           (item: TodoProps) => item.isCompleted === false
         ),
       };
-    case TODO_COMPLETE:
+    case TODO_TOGGLE_STATUS:
       return {
         ...state,
         todoList: state.todoList.map((item: TodoProps) => ({
           ...item,
-          isCompleted: !item.isCompleted,
+          isCompleted: action.payload,
         })),
       };
     default:
