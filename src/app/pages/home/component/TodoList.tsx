@@ -11,12 +11,18 @@ import {
 } from '../../../shared/utils/localStorageUtils';
 import { todoAdd, todoToggle } from '../../../shared/redux/action';
 
+interface StateProps {
+  todoList: TodoProps[];
+  currentTab: Tab;
+}
+
 const TodoList = (): React.ReactElement => {
-  const todoList = useSelector((state: any) => state.todoList);
+  const { todoList, currentTab }: StateProps = useSelector(
+    (state: any) => state
+  );
   const dispatch = useDispatch();
 
   const [listStatus, setListStatus] = useState(true);
-  const [currentTab, setCurrentTab] = useState<Tab>(Tab.ALL);
   const todoInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -68,13 +74,7 @@ const TodoList = (): React.ReactElement => {
           );
         })}
       </ul>
-      {todoList.length > 0 && (
-        <TodoFooter
-          todoList={todoList}
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-        />
-      )}
+      {todoList.length > 0 && <TodoFooter todoList={todoList} />}
     </div>
   );
 };

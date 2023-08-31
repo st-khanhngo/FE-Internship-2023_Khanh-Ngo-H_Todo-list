@@ -1,5 +1,6 @@
-import { ActionProps, TodoProps } from '../../core/models/todoProps';
+import { ActionProps, Tab, TodoProps } from '../../core/models/todoProps';
 import {
+  CHANGE_TAB,
   TODO_ADD,
   TODO_CLEAR,
   TODO_DELETE,
@@ -38,5 +39,12 @@ export const todoToggle = (status: boolean): ActionProps => {
   return {
     type: TODO_TOGGLE_STATUS,
     payload: status,
+  };
+};
+
+export const changeCurrentTab = (tab: Tab): ActionProps => {
+  return {
+    type: CHANGE_TAB,
+    payload: tab,
   };
 };

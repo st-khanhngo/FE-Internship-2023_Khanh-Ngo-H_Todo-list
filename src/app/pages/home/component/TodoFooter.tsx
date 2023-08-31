@@ -1,20 +1,23 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Tab, TodoProps } from '../../../core/models/todoProps';
-import { todoClear } from '../../../shared/redux/action';
+import { changeCurrentTab, todoClear } from '../../../shared/redux/action';
 
 interface FooterProps {
   todoList: TodoProps[];
-  currentTab: string;
-  setCurrentTab: React.Dispatch<React.SetStateAction<Tab>>;
 }
 
-const TodoFooter = ({ todoList, currentTab, setCurrentTab }: FooterProps) => {
+const TodoFooter = ({ todoList }: FooterProps) => {
   const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
+  const currentTab = useSelector((state: any) => state.currentTab);
   const dispatch = useDispatch();
 
   function clearComplete(): void {
     dispatch(todoClear());
+  }
+
+  function setCurrentTab(tab: Tab) {
+    dispatch(changeCurrentTab(tab));
   }
 
   return (

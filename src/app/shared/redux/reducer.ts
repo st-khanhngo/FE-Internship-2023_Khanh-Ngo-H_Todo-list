@@ -1,6 +1,7 @@
-import { ActionProps, TodoProps } from '../../core/models/todoProps';
+import { ActionProps, Tab, TodoProps } from '../../core/models/todoProps';
 import { StorageKey, getLocalStorage } from '../utils/localStorageUtils';
 import {
+  CHANGE_TAB,
   TODO_ADD,
   TODO_CLEAR,
   TODO_DELETE,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
   todoList: getLocalStorage(StorageKey.TODO),
+  currentTab: Tab.ALL,
 };
 
 export const todoReducer = (state = initialState, action: ActionProps) => {
@@ -47,6 +49,11 @@ export const todoReducer = (state = initialState, action: ActionProps) => {
           ...item,
           isCompleted: action.payload,
         })),
+      };
+    case CHANGE_TAB:
+      return {
+        ...state,
+        currentTab: action.payload,
       };
     default:
       return state;
