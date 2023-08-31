@@ -8,9 +8,10 @@ interface FooterProps {
 }
 
 const TodoFooter = ({ todoList }: FooterProps) => {
-  const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
   const currentTab = useSelector((state: StateProps) => state.currentTab);
   const dispatch = useDispatch();
+
+  const tabs = [Tab.ALL, Tab.ACTIVE, Tab.COMPLETED];
 
   function clearComplete(): void {
     dispatch(todoClear());
