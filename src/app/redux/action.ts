@@ -1,4 +1,4 @@
-import { ActionProps, Tab, TodoProps } from '../../core/models/todoProps';
+import { ActionProps, Tab, TodoProps } from '../core/models/todoProps';
 import {
   CHANGE_TAB,
   TODO_ADD,

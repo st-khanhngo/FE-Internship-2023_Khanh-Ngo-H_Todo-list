@@ -9,7 +9,7 @@ import {
   StorageKey,
   saveToLocalStorage,
 } from '../../../shared/utils/localStorageUtils';
-import { todoAdd, todoToggle } from '../../../shared/redux/action';
+import { todoAdd, todoToggle } from '../../../redux/action';
 
 interface StateProps {
   todoList: TodoProps[];

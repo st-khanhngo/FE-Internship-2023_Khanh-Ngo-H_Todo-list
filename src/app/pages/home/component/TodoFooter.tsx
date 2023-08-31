@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Tab, TodoProps } from '../../../core/models/todoProps';
-import { changeCurrentTab, todoClear } from '../../../shared/redux/action';
+import { changeCurrentTab, todoClear } from '../../../redux/action';
 
 interface FooterProps {
   todoList: TodoProps[];

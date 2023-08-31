@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { TodoProps } from '../../../core/models/todoProps';
-import { todoDelete, todoUpdate } from '../../../shared/redux/action';
+import { todoDelete, todoUpdate } from '../../../redux/action';
 
 interface TodoItemProps {
   todo: TodoProps;

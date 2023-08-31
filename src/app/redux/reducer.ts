@@ -1,5 +1,5 @@
-import { ActionProps, Tab, TodoProps } from '../../core/models/todoProps';
-import { StorageKey, getLocalStorage } from '../utils/localStorageUtils';
+import { ActionProps, Tab, TodoProps } from '../core/models/todoProps';
+import { StorageKey, getLocalStorage } from '../shared/utils/localStorageUtils';
 import {
   CHANGE_TAB,
   TODO_ADD,
